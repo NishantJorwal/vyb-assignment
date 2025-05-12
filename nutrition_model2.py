@@ -22,7 +22,13 @@ vectorstore = FAISS.from_documents(split_docs, embedding=HuggingFaceEmbeddings(m
 
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 
-os.environ["HUGGINGFACEHUB_API_TOKEN"] = "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"
+# .env file contains HUGGINGFACEHUB_API_TOKEN for authentication
+from dotenv import load_dotenv
+load_dotenv()
+import os
+# Load the environment variables from the .env file
+# Load the Hugging Face API token from the environment variable
+os.environ["HUGGINGFACEHUB_API_TOKEN"] = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 
 llm = HuggingFaceEndpoint(
     repo_id = "mistralai/Mixtral-8x7B-Instruct-v0.1",
