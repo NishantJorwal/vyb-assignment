@@ -13,6 +13,7 @@ if dish_name:
             # Call the estimate_nutrition function
             result = estimate_nutrition(dish_name)
             st.success("Estimation complete!")
-            st.json(result['result'])
+            # Display the result using st.write to handle non-JSON formatted strings
+            st.write(result['result'])
         except Exception as e:
             st.error(f"Error: {e}")
