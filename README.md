@@ -1,12 +1,12 @@
-# 🧠 Vyb AI Nutrition Estimator
+# Vyb AI Nutrition Estimator
 
 This project solves the challenge of estimating the nutrition of home-cooked Indian dishes, even when the input is partial, messy, or ambiguous. It uses open-source LLMs and LangChain to create a robust retrieval-augmented generation (RAG) system capable of understanding real-world cooking variations.
 
 ---
 
-## ✅ Part 1: Core Pipeline
+## Part 1: Core Pipeline
 
-### 🧩 Approach
+### Approach
 
 - **Document Loading**: Nutrition DB, household unit reference, and dish category mapping are loaded using `langchain.document_loaders.CSVLoader`.
 - **Text Embedding & Vector Store**: We used `sentence-transformers/all-mpnet-base-v2` as the embedding model and FAISS for vector indexing.
@@ -72,9 +72,9 @@ Butter: ~700kcal, 0.8g protein, 81g fat, 0g
 ```
 ---
 
-## 🧪 Part 2: Messy Reality (Edge Case Handling)
+## Part 2: Messy Reality (Edge Case Handling)
 
-### 🧩 Approach
+### Approach
 
 - Extended the same LangChain pipeline from Part 1 to work with "real-world messy dish names".
 - Created a natural language reasoning prompt that includes **dish name + issue list** (e.g., spelling variation, missing units).
@@ -85,7 +85,7 @@ Butter: ~700kcal, 0.8g protein, 81g fat, 0g
   - Default quantities if missing
 - Added a **structured output format** to log assumptions, nutrition values, and dish type.
 
-### 🔁 Assumptions & Fallback Design
+### Assumptions & Fallback Design
 
 | Situation | Strategy |
 |----------|----------|
@@ -343,44 +343,35 @@ Assumptions:
 ```
 ---
 
-## 🧠 Part 3: Manual Reasoning
+## Part 3: Manual Reasoning
 
-### ✔️ Mapping "lightly roasted jeera powder"
+### Mapping "lightly roasted jeera powder"
 
 - Mapped to `Cumin (Jeera)`
 - Reasoning: Light roasting and grinding do not significantly change macro-nutrient values. Therefore, it's valid to use the same nutrition entry as raw cumin seeds.
 
-### ✔️ Cooking Loss Ratio
+### Cooking Loss Ratio
 
 - **Raw weight**: 950g  
 - **Cooked weight**: 700g  
 - **Loss ratio**:  
-  \[
-  \frac{950 - 700}{950} \times 100 = 26.3\%
-  \]
+  ```
+  ((950 - 700) / 950) * 100 = 26.3%
+  ```
 
 - **Adjusted to 180g serving**:
   If nutrition is calculated for 700g, then:
-  \[
-  \text{Per 180g} = \frac{180}{700} \times \text{Total Nutrition}
-  \]
-
+  ```
+  Per 180g = (180 / 700) × Total Nutrition
+  ```
 ---
 
-## ✨ Bonus Section
+## Bonus Section
 
-### 🧪 Unit Testing
+### Unit Testing
 
-- Created a `test_conversion.py` file using Python `unittest`.
-- Covered 3 ingredients with different densities:
-  - Oil: 1 tbsp = 13g
-  - Sugar: 1 tbsp = 12.5g
-  - Flour: 1 tbsp = 8g
+- Covered ingredients with different densities in the above parts for all the cases.
+
 - Also included fallback behavior for unknown ingredients.
 
-### 💻 CLI Tool
-
-- Built a command-line script using `argparse` (`cli.py`) to take a dish name and return its estimated nutrition.
-- Example:
-  ```bash
-  python cli.py "Paneer Butter Masala"
+  
