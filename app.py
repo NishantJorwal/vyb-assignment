@@ -1,5 +1,5 @@
 import streamlit as st
-from nutrition_model2 import estimate_nutrition, estimate_messy_dish
+from nutrition_model2 import estimate_nutrition
 
 st.set_page_config(page_title="Indian Dish Nutrition Estimator", page_icon="🍛")
 st.title("🍽️ Indian Nutrition Estimator")
